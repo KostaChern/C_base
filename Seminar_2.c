@@ -2,7 +2,7 @@
 #include <limits.h>///пределы для целых типов
 #include <float.h>//пределы для вещественных типов 
 
-int main(){
+int main(void){
 //  int x = 12;
 //  printf("%#09x\n", x); 
 //  printf("%+09d\n", x);
@@ -65,11 +65,19 @@ int main(){
 // Данные на входе: 1 3 -5
 // Данные на выходе: -12
 
-	int a1, n, d;
-	int sum;
-	scanf("%d%d%d", &a1, &n, &d);//в scanf лучше не добавлять лишние символы, показать "%d,%d,%d"
-	sum = (2*a1 + (n-1)*d)*n / 2;
-	printf("%d\n", sum);
+	// int a1, n, d;
+	// scanf("%d%d%d", &a1, &n, &d);
+	// int sum = (2 * a1 + (n - 1) * d) * n / 2;
+	// printf("%d\n", sum);
+
+	// int a, n, d;
+	// scanf("%d%d%d", &a, &n, &d);
+	// float s = (a + n + d) / 3.f;
+	// printf("%.2f\n", s);
+
+	int x;
+	scanf("%d", &x);
+	printf("%d", (x / 100) * ((x % 100) / 10) * (x % 10));
 
 
 	return 0;
