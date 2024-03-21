@@ -13,8 +13,8 @@
 // Данные на выходе: 10+20+30=60
 
 #include <stdio.h>
-#include <limits.h>///пределы для целых типов
-#include <float.h>//пределы для вещественных типов 
+#include <limits.h>
+#include <float.h>
 
 int main(void){
     int a, n, d;
