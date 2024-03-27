@@ -17,12 +17,20 @@ int main(void){
 int m;
 	printf("enter the serial number of the current month: \n");
 	scanf("%d", &m);
-	m > 0 & m <= 12 ? printf("it's "): printf("the input is NOT correct !!");
-		m < 4 ? printf("winter now"):
-		m < 7 ? printf("spring now"):
-		m < 10 ? printf("sommer now"):
-		m < 12 ? printf("autumn now"):
+ m > 0 & m <= 12 ? printf("it's "): printf("the input is NOT correct !!");
+		// m < 4 = 12 ? printf("winter now"):
+		// m < 7 ? printf("spring now"):
+		// m < 10 ? printf("sommer now"):
+		// m < 12 ? printf("autumn now"):
+		// printf("winter now");
+	if (m < 3 || m == 12) 
 		printf("winter now");
+	else if (m < 6)
+		printf("spring now");
+	else if (m < 9)
+		printf("sommer now");
+	else if (m < 12)
+		printf("autumn now");
 
  return 0;
 }
