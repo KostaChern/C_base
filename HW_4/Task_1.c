@@ -20,7 +20,7 @@ int main()
 int i, a, b, cub;
 int summ = 0;
 scanf("%d%d", &a, &b);
-if (a < b && -101 < a && b < 101){
+if (a < b && -101 < a && b < 101){ // Проверка правильности ввода по условию задачи
 	i = a;
 	while(i <= b){
 		cub = i*i;
