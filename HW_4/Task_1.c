@@ -31,7 +31,7 @@ if (a < b && -101 < a && b < 101){
 	return 0;
 }
 else {
-printf("INPUT INCORRECT !!");
+	printf("INPUT INCORRECT !!");
 }
 return 0;
 }
