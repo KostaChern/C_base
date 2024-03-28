@@ -22,7 +22,7 @@ while (a != 0){
 		printf ("NO");
 		return 0;
 	}
-	a /= 10;
+a /= 10;
 }
 printf ("YES");
 return 0;
