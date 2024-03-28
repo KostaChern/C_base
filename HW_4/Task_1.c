@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <limits.h>
+#include <float.h>
+
 // Задача 1. Сумма квадратов маленьких чисел
 // Ввести два целых числа a и b (a ≤ b) и вывести сумму квадратов всех чисел от a
 // до b.
@@ -11,3 +15,24 @@
 // Данные на входе: 1 5
 // Данные на выходе: 55
 
+int main()
+{
+int i, a, b, cub;
+int summ = 0;
+scanf("%d%d", &a, &b);
+if (a < b && -101 < a && b < 101){
+	i = a;
+	printf ("%d\n", i);
+	while(i <= b){
+		cub = i*i;
+		summ = summ + cub;
+		i ++;
+	}
+	printf("%d", summ);
+	return 0;
+}
+else {
+printf("INPUT INCORRECT !!");
+}
+return 0;
+}

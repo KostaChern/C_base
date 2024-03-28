@@ -1,0 +1,2 @@
+
+		sum = cub + sum;
