@@ -22,7 +22,6 @@ int summ = 0;
 scanf("%d%d", &a, &b);
 if (a < b && -101 < a && b < 101){
 	i = a;
-	printf ("%d\n", i);
 	while(i <= b){
 		cub = i*i;
 		summ = summ + cub;
