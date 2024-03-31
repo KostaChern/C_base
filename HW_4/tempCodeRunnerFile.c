@@ -1,2 +1,2 @@
 
-		sum = cub + sum;
+		int c = i / 10;
