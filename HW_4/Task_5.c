@@ -20,8 +20,7 @@
 // Данные на выходе: 22
 
 int main() {
-int a,
-happyNumb = 0;
+int a, happyNumb = 0;
 scanf("%d", &a);
 	
 if (a < 10){
