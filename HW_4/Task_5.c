@@ -30,13 +30,13 @@ if (a < 10){
 }
 printf("happyNumb = ", a);
 for (int i = 10; i <= a; i++) {
-int b = 1, sum = 0 , count = i;	
+int pr = 1, sum = 0 , count = i;	
 	while (count != 0) {
-		b *= count % 10;
+		pr *= count % 10;
 		sum += count % 10;
 		count /= 10;
 	}
-    	if (b == sum) {
+    	if (pr == sum) {
 			printf("%d ", i);
     	    happyNumb++;
     	}
