@@ -31,10 +31,8 @@ int i;
 unsigned long long int res = 1;
  for (i = 2; i <= n; i++)
  res *= 2;
-
  return res;
 }
-
 int main(){
 int n;
 printf ("Input number from 1 to 64: \n");
