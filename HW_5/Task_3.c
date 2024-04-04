@@ -18,7 +18,7 @@
 
 enum happy_number {YES, NO};
 enum happy_number is_happy_number(int num) {
-    int sum = 0, pr = 1;
+int sum = 0, pr = 1;
 while (num != 0) {
 	pr *= num % 10;
 	sum += num % 10;
