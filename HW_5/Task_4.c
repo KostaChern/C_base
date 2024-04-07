@@ -28,3 +28,15 @@ if (n <= 0) {
 printf ("%d", summ (n));
 return 0;
 }
+
+// int main () {
+// int n = 100, i = 0, summ = 0;
+// printf ("%d\n", n);
+// while (i < n)
+// {
+//     i ++;
+//     summ += i;  
+// }
+// printf ("summ = %d, ", summ);
+// return 0;
+// }
