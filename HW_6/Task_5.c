@@ -1,4 +1,6 @@
-
+#include <stdio.h>
+#include <limits.h>///пределы для целых типов
+#include <float.h>//пределы для вещественных типов
 
 // Задача 5. Сколько раз встречается символ a
 // Дана строка из английских символов, пробелов и знаков препинания. В конце
@@ -16,3 +18,25 @@
 // Пример №2
 // Данные на входе: Hello world.
 // Данные на выходе: 0
+
+int search_a();
+
+
+int main()
+{
+	printf("Enter a string ending with '.':\n");
+	int count = search_a();
+	printf("Result = %d\n", count);
+	return 0;
+}
+
+int search_a()
+{
+	char c;
+	scanf("%c", &c);
+	if (c == '.')
+	{
+		return 0;
+	}
+	return (c == 'a') + search_a();
+}
