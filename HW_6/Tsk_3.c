@@ -15,7 +15,7 @@
 // Данные на входе: 255
 // Данные на выходе: 8
 
-int how_ones(int N);
+int how_ones(int n);
 
 int main()
 {
@@ -29,14 +29,14 @@ int main()
     return 0;
 }
 
-int how_ones(int N)
+int how_ones(int n)
 {
-    if (N == 0)
+    if (n == 0)
     {
         return 0;
     }
     else
     {
-        return (N & 1) + how_ones(N >> 1);
+        return (n & 1) + how_ones(n >> 1);
     }
 }
