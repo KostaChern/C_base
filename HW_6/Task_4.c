@@ -28,8 +28,6 @@ void odd_num()
 
 int main()
 {	
-    int count = 0;
-    
 	printf("Enter the elements: \n");
     odd_num(); 
     return 0;
