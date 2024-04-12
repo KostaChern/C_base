@@ -13,18 +13,19 @@
 // Данные на выходе: 105 203 1 1000
 
 int Input(int arr[], int n);
-void Sort_By_Null(int a[], int n);
-void Print_Arr(int arr[], int n);
+void Sort_By_Null(int arr[], int n);
 
 int main()
 {
-    enum { SIZE = 10 };
+    enum
+    {
+        SIZE = 10
+    };
     int arr[SIZE];
 
     printf("Enter 10 integers: \n");
     Input(arr, SIZE);
     Sort_By_Null(arr, SIZE);
-    Print_Arr(arr, SIZE);
 
     return 0;
 }
@@ -37,32 +38,12 @@ int Input(int arr[], int n)
     return i;
 }
 
-void Print_Arr(int arr[], int n)
+void Sort_By_Null(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        printf("%d ", arr[i]);
+        int num = arr[i] / 10;
+        if (num > 9 && num % 10 == 0)   //если не отсечь num > 9 => то в ответ будут попадать 1!
+            printf("%d ", arr[i]);
     }
-}
-
-void Sort_By_Null(int a[], int n)
-{
-    int i;
-    int tmp;
-    int flag;
-
-    do
-    {
-        flag = 0;
-        for (i = 1; i < n; i++)
-        {
-            if (a[i] % 10 < a[i - 1] % 10)
-            {
-                tmp = a[i];
-                a[i] = a[i - 1];
-                a[i - 1] = tmp;
-                flag = 1;
-            }
-        }
-    } while (flag);
 }
