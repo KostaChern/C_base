@@ -13,7 +13,7 @@
 // Данные на выходе: 105 203 1 1000
 
 int Input(int arr[], int n);
-void Sort_By_Null(int arr[], int n);
+void Find_max_fric(int arr[], int n);
 
 int main()
 {
@@ -22,7 +22,7 @@ int main()
 
     printf("Enter 10 integers: \n");
     Input(arr, SIZE);
-    Sort_By_Null(arr, SIZE);
+    Find_max_fric(arr, SIZE);
 
     return 0;
 }
@@ -35,7 +35,7 @@ int Input(int arr[], int n)
     return i;
 }
 
-void Sort_By_Null(int arr[], int n)
+void Find_max_fric(int arr[], int n)
 {
     for (int i = 0; i < n; i++)
     {
