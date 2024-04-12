@@ -17,11 +17,8 @@ void Sort_By_Null(int arr[], int n);
 
 int main()
 {
-    enum
-    {
-        SIZE = 10
-    };
-    int arr[SIZE];
+    enum { SIZE = 10 };
+    int arr [SIZE];
 
     printf("Enter 10 integers: \n");
     Input(arr, SIZE);
