@@ -15,7 +15,7 @@
 // Данные на входе: 1 2 3 4 5
 // Данные на выходе: 3.000
 
-float Average_arr (int arr[], int n);
+float Min_arr (int arr[], int n);
 
 int main()
 {
@@ -23,13 +23,13 @@ int main()
 	int arr [SIZE];
 
 	printf("Enter 5 integers: \n");
-	float sum_aver = Average_arr(arr, SIZE);
+	float sum_aver = Min_arr(arr, SIZE);
 	printf("Arithmetic mean: %.3f\n", sum_aver);
 
     return 0;
 }
 
-float Average_arr (int arr[], int n){
+float Min_arr (int arr[], int n){
 	float sum = 0;
 	for (int i = 0; i < n; i++){
 		scanf ("%d", &arr[i]);
