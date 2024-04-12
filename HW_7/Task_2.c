@@ -15,7 +15,7 @@
 
 
 int Input(int arr[], int n);
-int Shift_Right(int arr[], int n);
+int Sort_Arr(int arr[], int n);
 
 int main()
 {
@@ -24,7 +24,7 @@ int main()
 
 	printf("Enter 5 integers: \n");
 	Input(num, SIZE);
-	int min = Shift_Right(num, SIZE);
+	int min = Sort_Arr(num, SIZE);
 	printf("Minimum number: %d\n", min);
 
 	return 0;
@@ -38,7 +38,7 @@ int Input(int arr[], int n)
 	return i;
 }
 
-int Shift_Right(int arr[], int n)
+int Sort_Arr(int arr[], int n)
 {
 	int min = arr[0];
 	for (int i = 1; i < n; i++)

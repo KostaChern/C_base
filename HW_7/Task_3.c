@@ -15,7 +15,7 @@
 // Данные на выходе: 9 10 11 12 1 2 3 4 5 6 7 8
 
 int Input(int arr[], int n);
-int Shift_Right(int arr[], int n);
+int Sort_Arr(int arr[], int n);
 
 int main()
 {
@@ -24,8 +24,7 @@ int main()
 
 	printf("Enter 12 integers: \n");
 	Input(num, SIZE);
-	Shift_Right(num, SIZE);
-	// printf("%d\n", num);
+	Sort_Arr(num, SIZE);
 
 	return 0;
 }
@@ -38,7 +37,7 @@ int Input(int arr[], int n)
 	return i;
 }
 
-int Shift_Right(int arr[], int n)
+int Sort_Arr(int arr[], int n)
 {
 	for (int i = 8; i < n; i++)
 	{
@@ -50,3 +49,4 @@ int Shift_Right(int arr[], int n)
 	}
 	return 0;
 }
+
