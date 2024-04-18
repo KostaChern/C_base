@@ -32,6 +32,7 @@ int Input(int arr[], int n)
     return i;
 }
 
+
 int Find_friq(int *numb, int len)
 {
     int count[len];
