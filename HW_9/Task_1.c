@@ -22,9 +22,9 @@ void findOnceChars(char *input_fn, char *output_fn)
 	char word1[MAX_LINE_SIZE];
 	char word2[MAX_LINE_SIZE];
 
-	FILE *f_in = fopen(input_fn, "r");
-	fscanf(f_in, "%s %s", word1, word2);
-	fclose(f_in);
+	FILE *fi = fopen(input_fn, "r");
+	fscanf(fi, "%s %s", word1, word2);
+	fclose(fi);
 
 	int count1[26] = {0};
 	int count2[26] = {0};
