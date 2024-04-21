@@ -22,9 +22,9 @@ void findOnceChars(char *input_fn, char *output_fn)
 	char word1[MAX_LINE_SIZE];
 	char word2[MAX_LINE_SIZE];
 
-	FILE *fi = fopen(input_fn, "r");
-	fscanf(fi, "%s %s", word1, word2);
-	fclose(fi);
+	FILE *f_in = fopen(input_fn, "r");
+	fscanf(f_in, "%s %s", word1, word2);
+	fclose(f_in);
 
 	int count1[26] = {0};
 	int count2[26] = {0};
@@ -41,15 +41,15 @@ void findOnceChars(char *input_fn, char *output_fn)
 		count2[word2[i] - 'a']++;
 	}
 
-	FILE *fo = fopen(output_fn, "w");
+	FILE *f_out = fopen(output_fn, "w");
 	for (int i = 0; i < 26; i++)
 	{
 		if (count1[i] == 1 && count2[i] == 1)
 		{
-			fprintf(fo, "%c ", i + 'a');
+			fprintf(f_out, "%c ", i + 'a');
 		}
 	}
-	fclose(fo);
+	fclose(f_out);
 }
 
 int main()
