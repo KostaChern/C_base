@@ -1,14 +1,21 @@
-all: report
+#  компилятор, используемый для сборки
+CC=gcc
+# в переменной CFLAGS лежат флаги, которые передаются компилятору
+CFLAGS=-c -Wall -std=c99
 
-report: main.o temp_functions.o
-	gcc -o report main.o temp_functions.o
+all: temperature_stats
 
-main.o: main.c temp_functions.h
-	gcc -c -o main.o main.c
+temperature_stats: report.o temp_function.o temp_interact_mode.o
+	$(CC) report.o temp_function.o temp_interact_mode.o -o temperature_stats
 
-temp_functions.o: temp_functions.c 
-	gcc -c -o temp_functions.o temp_functions.c
+report.o: report.c
+	$(CC) $(CFLAGS) report.c
+
+temp_function.o: temp_function.c
+	$(CC) $(CFLAGS) temp_function.c
+	
+temp_interact_mode.o: temp_interact_mode.c
+	$(CC) $(CFLAGS) temp_interact_mode.c
 
 clean:
-	del *.o
-	del report.exe
+	del *.o *.exe
