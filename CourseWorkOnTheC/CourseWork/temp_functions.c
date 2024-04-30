@@ -1,182 +1,124 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "temp_functions.h"
+#include "temp_function.h"
 
-//Функция проверки данных в строке. Если данные не соответствуют, то выводится сообщение с конкретной ошибкой и номером пропущеной строки
-int checking_data(long string_counter, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t min, int8_t t)
+int parseCSVFile(const char *filename, struct TemperatureData *data)
 {
-    if(year != 2021)
+    FILE *file = fopen(filename, "r");
+    if (!file)
     {
-        printf("\nWARNING : The year does not correspond to the time period (2021)\n");
-        printf("Year - >%d< | Month - %d | Day - %d | Hour - %d | Minute - %d | t - %d\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
+        printf("Error: Unable to open file %s\n", filename);
+        return -1;
     }
-    else if ((month < 1) || (month > 12))
-    {
-        printf("\nWARNING : Date format error (Month)\n");
-        printf("Year - %d | Month - >%d< | Day - %d | Hour - %d | Minute - %d | t - %d\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
-    }
-    else if ((day < 1) || (day > 31))
-    {
-        printf("\nWARNING : Date format error (Day)\n");
-        printf("Year - %d | Month - %d | Day - >%d< | Hour - %d | Minute - %d | t - %d\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
-    }
-    else if ((hour < 0) || (hour > 23))
-    {
-        printf("\nWARNING : Date format error (Hour)\n");
-        printf("Year - %d | Month - %d | Day - %d | Hour - >%d< | Minute - %d | t - %d\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
-    }
-    else if ((min < 0) || (min > 59))
-    {
-        printf("\nWARNING : Date format error (Minute)\n");
-        printf("Year - %d | Month - %d | Day - %d | Hour - %d | Minute - >%d< | t - %d\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
-    }
-    else if ((t < -99) || (t > 99))
-    {
-        printf("\nWARNING : The sensor value is out of range\n");
-        printf("Year - %d | Month - %d | Day - %d | Hour - %d | Minute - %d | t - >%d<\n", year, month, day, hour, min, t);
-        printf("Line %ld is skipped\n", string_counter);
-        return 0;
-    }
-    else
-    {
-       return 1;
-    }
-}
 
-//Функия вывода статистики из файла, считываются все записи
-void statistics_output(struct sensor* info, long string_counter)
-{
-    int minT = info[0].t;
-    int maxT = info[0].t;
-    long sum = 0;
-    float average = 0;
-    for (long i = 0; i < string_counter; i++)
+    int numEntries = 0;
+    int countErrors = 0;
+    char buffer[100];
+
+    while (fgets(buffer, sizeof(buffer), file) != NULL)
     {
-        if (minT > info[i].t)
+        if (sscanf(buffer, "%d;%d;%d;%d;%d;%d", &data[numEntries].year, &data[numEntries].month, &data[numEntries].day, &data[numEntries].hour, &data[numEntries].minute, &data[numEntries].temperature) == 6)
         {
-            minT = info[i].t;
-        }
-        if (maxT < info[i].t)
-        {
-            maxT = info[i].t;
-        }
-        sum += info[i].t;
-    }
-    average = (float)sum / string_counter;
-    printf("\nFull statistics\n");
-    printf("Sensor readings : %ld\n", string_counter);
-    printf("Minimum temperature = %d\n", minT);
-    printf("Maximum temperature = %d\n", maxT);
-    printf("Average temperature = %.1f\n", average);
-}
-
-//Функия вывода статистики из файла, считываются записи за указаный месяц
-void statistics_output_month(struct sensor* info, long string_counter, int input_month)
-{
-    int minT = 100;
-    int maxT = -100;
-    long sum = 0;
-    float average = 0;
-    long line_count_month = 0;                  //Счетчик колличества записей за конкретый месяц
-    for (long i = 0; i < string_counter; i++)
-    {
-        if((info[i].month == input_month))
-        {
-            if (minT > info[i].t)
-            {
-                minT = info[i].t;
-            }
-            if (maxT < info[i].t)
-            {
-                maxT = info[i].t;
-            }
-            line_count_month++;
-            sum += info[i].t;
-        }
-    }
-    average = (float)sum / line_count_month;
-    printf("\nStatistics for the %d month\n", input_month);
-    printf("Sensor readings : %ld\n", line_count_month);
-    printf("Minimum temperature = %d\n", minT);
-    printf("Maximum temperature = %d\n", maxT);
-    printf("Average temperature = %.1f\n", average);
-}
-
-//Функция переноса данных из строки в конкретную структуру
-void add_record(struct sensor *info, long string_number, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t min, int8_t t)
-{
-    info[string_number].year = year;
-    info[string_number].month = month;
-    info[string_number].day = day;
-    info[string_number].hour = hour;
-    info[string_number].min = min;
-    info[string_number].t = t;
-}
-
-//Функция в которой происходит чтение из файла и запись в массив структурного типа 
-//при помощи вспомогательных фунций checking_data() и add_record()
-long add_info(struct sensor *info, char * file_name)
-{
-    FILE *fp;
-    fp = fopen(file_name, "r");
-    long counter = 0;                           //Счетчик колличества записей в массив
-    long err_string_counter = 0;                //Счетчик для вывода номера строки с ошибкой
-    if (fp == NULL)
-    {
-        printf("ERROR : the file cannot be opened.\n");
-        exit(-1);
-    }
-        
-    int Y, M, D, H, Min, T, r;                  //Переменные для переноса данных    
-    long errors = 0;                            //Счетчик колличества ошибок
-    while ((r = fscanf(fp, "%d;%d;%d;%d;%d;%d", &Y, &M, &D, &H, &Min, &T)) > 0)
-    {
-        err_string_counter++;
-        if (r < 6)
-        {
-            char s[20];
-            r = fscanf(fp, "%[^\n]", s);
-            printf("\nERROR : Data is lost\nThe line %ld is skipped\n", err_string_counter);
-            errors++;
+            numEntries++;
         }
         else
         {
-            if(checking_data(err_string_counter, Y, M, D, H, Min, T))
-            {
-                add_record(info, counter++, Y, M, D, H, Min, T);
-            }
-            else
-            {
-                errors++;
-            }
+            fprintf(stderr, "Error: Invalid format in CSV file at line %d\n", numEntries + 2);
+            countErrors++;
         }
     }
-    printf("\nThe number of correct entries in the file : %ld\n",counter);
-    printf("The number of missing lines : %ld\n",errors);
-    
-    fclose(fp);
-    return counter;  
+
+    if (countErrors > 0)
+    {
+        fprintf(stderr, "The number of errors detected in CSV file: %d.\n\n", countErrors);
+    }
+
+    fclose(file);
+    return numEntries;
 }
 
-//Функция вывода подсказки на экран
-void help()
+void calculateStatistics(struct TemperatureData *data, int numEntries, struct MonthlyStatistics *statistics, struct YearlyStatistics *yearlyStatistics)
 {
-    printf("-h                 Help\n");
-    printf("-f <filename.csv>  Required parameter\n");
-    printf("                   This parameter is required to run the program\n");
-    printf("                   You must specify the name of the file that contains the data\n");
-    printf("-m [1...12]        Optional parameter\n");
-    printf("                   If this parameter is used, statistics for the specified month are displayed\n");
-    printf("                   If this parameter is not used, the full statistics are displayed.\n");
+    yearlyStatistics->averageTemperature = 0.0;
+    yearlyStatistics->minTemperature = MAX_TEMP_VALUE;
+    yearlyStatistics->maxTemperature = MIN_TEMP_VALUE;
+
+    for (int i = 0; i < 12; i++)
+    {
+        statistics[i].month = i + 1;
+        statistics[i].averageTemperature = 0.0;
+        statistics[i].minTemperature = MAX_TEMP_VALUE;
+        statistics[i].maxTemperature = MIN_TEMP_VALUE;
+    }
+
+    int count = 0;
+
+    for (int i = 0; i < numEntries; i++)
+    {
+
+        yearlyStatistics->averageTemperature += data[i].temperature;
+        if (data[i].temperature < yearlyStatistics->minTemperature)
+        {
+            yearlyStatistics->minTemperature = data[i].temperature;
+        }
+        if (data[i].temperature > yearlyStatistics->maxTemperature)
+        {
+            yearlyStatistics->maxTemperature = data[i].temperature;
+        }
+        count++;
+
+        int index = data[i].month - 1;
+        statistics[index].year = data[i].year;
+        statistics[index].averageTemperature += data[i].temperature;
+        if (data[i].temperature < statistics[index].minTemperature)
+        {
+            statistics[index].minTemperature = data[i].temperature;
+        }
+        if (data[i].temperature > statistics[index].maxTemperature)
+        {
+            statistics[index].maxTemperature = data[i].temperature;
+        }
+        statistics[index].count++;
+    }
+
+    for (int i = 0; i < 12; i++)
+    {
+        if (statistics[i].count > 0)
+        {
+            statistics[i].averageTemperature /= statistics[i].count;
+        }
+    }
+
+    if (count > 0)
+    {
+        yearlyStatistics->averageTemperature /= count;
+    }
+}
+
+void showYearlyStatistics(FILE *const stream, struct YearlyStatistics *statistics)
+{
+    fprintf(stream, "Year statistic: avr: %.1f; min: %d; max: %d;\n", statistics->averageTemperature, statistics->minTemperature, statistics->maxTemperature);
+}
+
+void showMonthlyStatistics(FILE *const stream, struct MonthlyStatistics *statistics)
+{
+    int countLine = 0;
+    fprintf(stream, "ID# Year Month NuValue MonthAvg MonthMin MonthMax\n");
+    for (int i = 0; i < 12; i++)
+    {
+        if (statistics[i].count > 0)
+        {
+            fprintf(stream, "%3d %4d %5d %7d %8.1f %8d %8d\n", ++countLine, statistics[i].year, statistics[i].month, statistics[i].count, statistics[i].averageTemperature, statistics[i].minTemperature, statistics[i].maxTemperature);
+        }
+    }
+}
+
+void showMonthStatistics(FILE *const stream, struct MonthlyStatistics *statistics, int month)
+{
+    int countLine = 0;
+    fprintf(stream, "ID# Year Month NuValue MonthAvg MonthMin MonthMax\n");
+    if (statistics[month].count > 0)
+    {
+        fprintf(stream, "%3d %4d %5d %7d %8.1f %8d %8d\n", ++countLine, statistics[month].year, statistics[month].month, statistics[month].count, statistics[month].averageTemperature, statistics[month].minTemperature, statistics[month].maxTemperature);
+    }
 }
