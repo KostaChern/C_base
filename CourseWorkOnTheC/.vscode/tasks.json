@@ -1,14 +1,27 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "type": "markdownlint",
-      "problemMatcher": ["$markdownlint"],
-      "label": "markdownlint: Lint all Markdown files in the workspace with markdownlint",
-      "group": {
-        "kind": "build",
-        "isDefault": true
+  "tasks":[ 
+      {
+          "label": "C/C++: gcc.exe build active file",
+          "type": "cppbuild",
+          "command": "C:\\MinGW\\bin\\gcc.exe",
+          "args": [
+              "-std=c99",
+              "-fdiagnostics-color=always",
+              "-g",
+              "${file}",
+              "-o",
+              "${fileDirname}\\${fileBasenameNoExtension}.exe"
+          ],
+          "group": "build",
+          "problemMatcher": []
+      },
+      {
+          "label": "Test",
+          "type": "shell",
+          "command": "./a.out",
+          "group": "test",
+          "dependsOn": ["Build"]
+
       }
-    }
   ]
 }
