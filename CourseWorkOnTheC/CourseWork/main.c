@@ -1,25 +1,29 @@
-#include <stdio.h> 
-#include <conio.h> 
-#define N 6
-int main(int argc, char **argv)
+#include "common.h"
+#include "temp_functions.h"
+
+void printHelp(void) {
+    printf("\nThis program reads temperature readings from a csv file and outputs statistics by month or for 1 year.\n");
+    printf("\t[-h]                 to show this message\n");
+    printf("\t[-f <path to csv>]   path to parsing csv file\n");
+    printf("\t[-m <month number>]  to show statistics by this month\n");
+    printf("\t[-a]                 to show statistics by year\n\n");
+}
+
+int main(int argc, char * const argv[])
 {
-    FILE *fp;
-    char fileName[] = "temperature_small.csv";
-    fp = fopen(fileName, "r");
-    if(fp == NULL)
-        return 1;
-    int Y, M, D, H, Min, T;
-    int r;
-    while((r = fscanf(fp,"%d;%d;%d;%d;%d;%d",&Y, &M, &D, &H, &Min, &Y))>0)
-    {
-        if(r<N)
-        {
-            char s[20];
-            r = fscanf(fp, "%[^\n]", s);
-            printf("ERROR %d=%s\n",r,s);
+    int rez = 0;
+    while ( (rez = getopt(argc, argv, "hf:m:a")) != -1 )
+        switch (rez) {
+            case 'h': printHelp(); break;
+            case 'f': {
+                parseCSV(optarg); 
+                calculateAllStatistic();
+                break;
+            }
+            case 'm': getMonthStatistic(optarg); break;
+            case 'a': getYearStatistics(); break;
+            case '?': printHelp(); break;
+            default: printHelp(); break;
         }
-        else
-            printf("%d;%d;%d;%d;%d;%d\n", Y, M, D, H, Min, T); 
-    }
     return 0;
 }
