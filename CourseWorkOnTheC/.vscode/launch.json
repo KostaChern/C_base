@@ -9,12 +9,12 @@
           ""
         ],
         "stopAtEntry": false,
-        "cwd": "e:/04_GeekBrains/08_embedded_developer/01_basic_c/01/FinalProject",
+        "cwd": "c:/Users/codah/Desktop/GB/C/CourseWorkOnTheC/CourseWork",
         "environment": [],
-        "program": "e:/04_GeekBrains/08_embedded_developer/01_basic_c/01/FinalProject/build/Debug/outDebug",
+        "program": "c:/Users/codah/Desktop/GB/C/CourseWorkOnTheC/CourseWork/build/Debug/outDebug",
         "internalConsoleOptions": "openOnSessionStart",
         "MIMode": "gdb",
-        "miDebuggerPath": "C:/msys64/mingw64/bin/gdb.exe",
+        "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
         "externalConsole": false,
         "setupCommands": [
           {
