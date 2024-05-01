@@ -9,7 +9,7 @@ void printHelp(void) {
     printf("\t[-a]                 to show statistics by year\n\n");
 }
 
-int main(int argc, char *const argv[])
+int main(int argc, char * const argv[])
 {
     int rez = 0;
     while ( (rez = getopt(argc, argv, "hf:m:a")) != -1 )
