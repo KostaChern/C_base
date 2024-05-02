@@ -14,3 +14,4 @@ common.o: common.c common.h
 
 clean:
 	del *.o
+	del sensor.exe

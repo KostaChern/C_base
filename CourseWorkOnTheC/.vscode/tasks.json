@@ -1,27 +1,30 @@
 {
-  "tasks":[ 
-      {
-          "label": "C/C++: gcc.exe build active file",
-          "type": "cppbuild",
-          "command": "C:\\MinGW\\bin\\gcc.exe",
-          "args": [
-              "-std=c99",
-              "-fdiagnostics-color=always",
-              "-g",
-              "${file}",
-              "-o",
-              "${fileDirname}\\${fileBasenameNoExtension}.exe"
-          ],
-          "group": "build",
-          "problemMatcher": []
+  "tasks": [
+    {
+      "label": "C/C++: gcc.exe build active file",
+      "type": "cppbuild",
+      "command": "C:\\MinGW\\bin\\gcc.exe",
+      "args": [
+        "-std=c99",
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Test",
+      "type": "shell",
+      "command": "./a.out",
+      "group": {
+        "kind": "build",
+        "isDefault": true
       },
-      {
-          "label": "Test",
-          "type": "shell",
-          "command": "./a.out",
-          "group": "test",
-          "dependsOn": ["Build"]
-
-      }
+      "dependsOn": ["Build"],
+      "problemMatcher": []
+    }
   ]
 }
